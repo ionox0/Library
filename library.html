@@ -1,53 +1,67 @@
 <html>
 
-<script type="text/javascript">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
 
-function Library(libraryName) { //Defines the Library class
-    this.name = libraryName;
-    this.shelves = [];
-}
+<body>
 
-function showLibrary(library) { //Reports the books list as objects
-    var booksList = "";
-    for (var i = 0; i < library.shelves.length; i++) {
-        console.log(library.shelves[i]);
-    }
-}
+    <p id="libraryDisplay"></p>
 
-function Shelf(section) { //Defines the Shelf class
-    this.section = section;
-    this.books = [];
-}
+    <script type="text/javascript">
 
-function Book(title, author) { //Defines the Book class
-    this.name = title;
-    this.author = author;
-}
+        function Library(libraryName) { //Defines the Library class
+            this.name = libraryName;
+            this.shelves = [];
+        }
 
-function Enshelf(book, shelf) { //Puts book @book on shelf @shelf
-    shelf.books.push(book);
-}
+        function showLibrary(library) { //Reports the books list as objects
+            var booksList = "";
+            for (var i = 0; i < library.shelves.length; i++) {
+                for (var j = 0; j < library.shelves[i].books.length; j++) {
+                    booksList = booksList + library.shelves[i].books[j].name + ', ' + library.shelves[i].books[j].author + '<br>';
+                }
+            }
+            console.log(booksList);
+            $('#libraryDisplay').html(booksList);
+        }
 
-function Unshelf(book, shelf) { //Removes book @book from shelf @shelf
-    shelf.books.splice(shelf.books.indexOf(book),1);
-}
+        function Shelf(section) { //Defines the Shelf class
+            this.section = section;
+            this.books = [];
+        }
+
+        function Book(title, author) { //Defines the Book class
+            this.name = title;
+            this.author = author;
+        }
+
+        function Enshelf(book, shelf) { //Puts book @book on shelf @shelf
+            shelf.books.push(book);
+        }
+
+        function Unshelf(book, shelf) { //Removes book @book from shelf @shelf
+            shelf.books.splice(shelf.books.indexOf(book),1);
+        }
 
 
-//Test
-iansLibrary = new Library("Ian's Public Library");
+        //Test
+        iansLibrary = new Library("Ian's Public Library");
 
-horror = new Shelf("Horror");
-iansLibrary.shelves.push(horror);
-reference = new Shelf("Reference");
-iansLibrary.shelves.push(reference);
+        horror = new Shelf("Horror");
+        iansLibrary.shelves.push(horror);
+        reference = new Shelf("Reference");
+        iansLibrary.shelves.push(reference);
 
-theShining = new Book("The Shining", "Stephen King");
-Enshelf(theShining, horror);
-physics = new Book("Introductory Physics", "Richard Feynmann");
-Enshelf(physics, reference);
-Unshelf(physics, reference);
+        theShining = new Book("The Shining", "Stephen King");
+        Enshelf(theShining, horror);
+        physics = new Book("Introductory Physics", "Richard Feynmann");
+        Enshelf(physics, reference);
+        //Unshelf(physics, reference);
 
-console.log(showLibrary(iansLibrary));
+        showLibrary(iansLibrary); 
 
-</script>
+    </script>
+    
+</body>
 </html>
